@@ -4,24 +4,35 @@
 
 ### Pacotes instalados
 
-#### * `yarn add express`
+* #### express
+
+`yarn add express`
 
   Microframework para node, será utilizado para lidar com rotas, requisições e respostas para o server.
 
-#### * `yarn add nodemon -D`
+* #### nodemon
+  
+ `yarn add nodemon -D`
 
   Smente em dev, utilizado para restartar o server automaticamente quando há modificações.
 
-#### * `yarn add mongoose`
+* #### mongoose
+  
+ `yarn add mongoose`
 
   Implementa ODM.
 
-#### * `yarn add axios`
+* #### axios
+  
+  `yarn add axios`
 
   Pacote utilizado para acessar APIs externas, neste caso, a do GitHub.
 
   > Ps. É possível também, dentro do node, fazer isto de diversas formas.
 
-#### * `yarn add cors`
+* #### cors
+  
+  `yarn add cors`
 
   Permite que a aplicação seja acessada por qualquer endereço, isto é necessário para permitir que o front-end em react acesse o back-end
+  
