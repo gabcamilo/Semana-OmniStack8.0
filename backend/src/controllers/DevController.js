@@ -1,6 +1,21 @@
 const axios = require('axios');
 const Dev = require('../models/Dev');
 module.exports = {
+  async index(req, res){
+    const{user} = req.headers;
+    console.log(user)
+    const loggedDev = await Dev.findById(user);
+
+    const users = await Dev.find({
+      $and:[
+        {_id: {$ne: user}},
+        {_id: {$nin: loggedDev.likes}},
+        {_id: {$nin: loggedDev.dislikes}}
+      ]
+    }) 
+    return res.json(users)
+  },
+
   async store(req, res){
     console.log(req.body.username);
     const {username} = req.body; //outra forma de obter (desestruturação)
@@ -24,7 +39,7 @@ module.exports = {
       bio,
       avatar
   });
-    console.log(response.data);
+    //console.log(response.data);
     return res.json(dev)
   }
 }
