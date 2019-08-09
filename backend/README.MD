@@ -1,6 +1,6 @@
 # Semana OmniStack 8.0
 
-## Backend
+## Back-end
 
 ### Pacotes instalados
 

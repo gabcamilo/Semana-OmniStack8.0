@@ -15,4 +15,3 @@ server.use(express.json()); //permite ao express entender requisições json
 server.use(routes);
 
 server.listen(3333);
-
