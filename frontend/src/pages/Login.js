@@ -2,15 +2,25 @@ import React, {useState} from 'react';
 //useState é utilizado para utilizar estado
 //estado de um componente: é toda informação que o componente vai manipular
 
-import logo from '../assets/logo.svg'
-import './Login.css'
+import api from '../services/api';
+import logo from '../assets/logo.svg';
+import './Login.css';
 
-export default function Login(){
+export default function Login({history}){//todos os componentes que declarados nas rotas possuem esta propriedade "history"
   const [ username, setUsername ]= useState('');
 
-  function handleSubmit(e){
+  async function handleSubmit(e){
     e.preventDefault(); //previne o comportamento padrão de redirecionamento de página quando um formulário pe submetido
-    console.log(username)
+    console.log(username);
+
+    const response = await api.post('/devs', {
+      //parametros do request:
+      //username: username
+      username, //como ambas as propriedades chamam-se username é possível enviar utilizando a short syntax do es6
+    });
+    const { _id } = response.data;
+    console.log(response);
+    history.push(`/dev/${_id}`);
   }
 
   return (
