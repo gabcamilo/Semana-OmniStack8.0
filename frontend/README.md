@@ -16,7 +16,7 @@
 
     Biblioteca React Router versão para web. Para implementação das rotas das telas
 
-  * #### Axios
+* #### Axios
 
     `yarn add axios`
 

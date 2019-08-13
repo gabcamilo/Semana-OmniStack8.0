@@ -23,6 +23,7 @@ module.exports = {
     //findOne => método do mongoose
 
     if(userExists){
+      console.log("User Exists")
       return res.json(userExists);
     }
 
@@ -40,6 +41,7 @@ module.exports = {
       avatar
   });
     //console.log(response.data);
+    console.log("New User")
     return res.json(dev)
   }
 }
