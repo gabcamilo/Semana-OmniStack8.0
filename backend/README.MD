@@ -35,3 +35,9 @@
     `yarn add cors`
 
     Permite que a aplicação seja acessada por qualquer endereço, isto é necessário para permitir que o front-end em react acesse o back-end
+
+* #### Socket.io Client
+  
+    `yarn add socket.io`
+
+    Torna o server compativel com protocolo de web sockets

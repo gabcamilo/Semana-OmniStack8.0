@@ -21,3 +21,9 @@
     `yarn add axios`
 
     Pacote utilizado para acessar APIs externas.
+
+* #### Socket.io Client
+  
+    `yarn add socket.io-client`
+
+    Permite conexões com protocolo de web sockets

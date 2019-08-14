@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import io from 'socket.io-client';
 import { Link } from 'react-router-dom';
 //useEffect é utilizado para fazer uma chamada à api assim que o componente for exibido em tela
 import './Main.css'
@@ -12,7 +13,7 @@ import like from '../assets/like.svg';
 export default function Main({match}){// o react router dom inclui uma propriedade chamada match, que possui todos os parâmetros passados para esta rota
   const [users, setUsers] = useState([]);
 
-
+  //faz chamada à api
   useEffect(() => {
     async function loadUsers(){
       const response = await api.get('/devs', {
@@ -32,6 +33,25 @@ export default function Main({match}){// o react router dom inclui uma proprieda
      */
 
   }, [match.params.id]);
+
+  //conecta com o websocket
+  useEffect(() =>{
+    const socket = io('http://localhost:3333');
+
+    socket.on('oi', message => {
+      console.log(message);
+    })
+
+    setTimeout(() => {
+      socket.emit('oi', {
+        message: 'Oi do Front!!'
+      })
+    }, 3000);
+
+  }, [match.params.id]);
+
+
+
 
   async function handleLike(id){
     api.post(`/devs/${id}/likes`, null, {
@@ -72,7 +92,7 @@ export default function Main({match}){// o react router dom inclui uma proprieda
         ))}
         </ul>
         ) : (
-          <div class="empty">Acabou :( </div>
+          <div className="empty">Acabou :( </div>
         )
       }
     </div>
