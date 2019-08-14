@@ -12,15 +12,19 @@ export default function Login({history}){//todos os componentes que declarados n
   async function handleSubmit(e){
     e.preventDefault(); //previne o comportamento padrão de redirecionamento de página quando um formulário pe submetido
     console.log(username);
+    try{
+      const response = await api.post('/devs', {
+        //parametros do request:
+        //username: username
+        username, //como ambas as propriedades chamam-se username é possível enviar utilizando a short syntax do es6
+      });
+      const { _id } = response.data;
+      console.log(response);
+      history.push(`/dev/${_id}`);
 
-    const response = await api.post('/devs', {
-      //parametros do request:
-      //username: username
-      username, //como ambas as propriedades chamam-se username é possível enviar utilizando a short syntax do es6
-    });
-    const { _id } = response.data;
-    console.log(response);
-    history.push(`/dev/${_id}`);
+    }catch(err){
+      console.log(err.message);
+    }
   }
 
   return (
