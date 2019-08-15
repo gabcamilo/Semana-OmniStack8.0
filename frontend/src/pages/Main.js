@@ -9,10 +9,11 @@ import api from '../services/api';
 import logo from '../assets/logo.svg';
 import dislike from '../assets/dislike.svg';
 import like from '../assets/like.svg';
+import itsamatch from '../assets/itsamatch.png';
 
 export default function Main({match}){// o react router dom inclui uma propriedade chamada match, que possui todos os parâmetros passados para esta rota
   const [users, setUsers] = useState([]);
-
+  const [matchDev, setMatchDev] = useState(null);
   //faz chamada à api
   useEffect(() => {
     async function loadUsers(){
@@ -41,9 +42,10 @@ export default function Main({match}){// o react router dom inclui uma proprieda
     });
 
     socket.on('match', dev => {
-      console.log(dev);
+      //console.log(dev);
+      setMatchDev(dev);
     });
-    
+
   }, [match.params.id]);
 
 
@@ -91,6 +93,18 @@ export default function Main({match}){// o react router dom inclui uma proprieda
           <div className="empty">Acabou :( </div>
         )
       }
+
+      { matchDev && (
+        <div className="match-container">
+          <img src={itsamatch} alt="It's a match"/>
+          <img className="avatar" src={matchDev.avatar} alt={matchDev.name}/>
+          <strong>{matchDev.name}</strong>
+          <p>{matchDev.bio}</p>
+
+          <button type="button" onClick={() => setMatchDev(null)}>FECHAR</button>
+        </div>
+      )}
+
     </div>
   )
 }
