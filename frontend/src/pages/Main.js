@@ -36,18 +36,14 @@ export default function Main({match}){// o react router dom inclui uma proprieda
 
   //conecta com o websocket
   useEffect(() =>{
-    const socket = io('http://localhost:3333');
+    const socket = io('http://localhost:3333',{
+      query: {user:match.params.id}
+    });
 
-    socket.on('oi', message => {
-      console.log(message);
-    })
-
-    setTimeout(() => {
-      socket.emit('oi', {
-        message: 'Oi do Front!!'
-      })
-    }, 3000);
-
+    socket.on('match', dev => {
+      console.log(dev);
+    });
+    
   }, [match.params.id]);
 
 

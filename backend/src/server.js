@@ -7,22 +7,17 @@ const app = express();
 const server = require('http').Server(app)
 //importa o modlo http padrao do node (ja vem no node), para extrair o servidor http do express para uni-lo com o server websocket
 //isto fará com que o servidor aceite os protocolos http e websocket
-
 const io = require('socket.io')(server);//retorna uma função q recebe um servidor http
+
+const connectedUsers = {}
 
 
 io.on('connection', socket =>{
-  console.log('Nova Conexão', socket.id);
+  const {user} = socket.handshake.query;
 
-  socket.on('oi', message => {
-    console.log(message);
-  })
+  console.log(user, socket.id);
 
-  setTimeout(() => {
-    socket.emit('oi', {
-      message: "oie do Back"
-    })
-  }, 5000);
+  connectedUsers[user] = socket.id;
 } )
 
 mongoose.connect('mongodb+srv://gabcamilo:0611@cluster0-0o4zm.mongodb.net/oministack8?retryWrites=true&w=majority', {
@@ -30,6 +25,13 @@ mongoose.connect('mongodb+srv://gabcamilo:0611@cluster0-0o4zm.mongodb.net/ominis
 });
 
 //app.use: necessario quando é alguma configuuração está em outo arquivo ou módulo
+
+//middleware
+app.use((req, res, next) =>{
+  req.io = io;
+  req.connectedUsers = connectedUsers;
+  return next();
+});
 
 app.use(cors()); //deve ficar antes das rotas
 app.use(express.json()); //permite ao express entender requisições json
